@@ -1,5 +1,6 @@
 import re
 import state as state_def
+import markov_chain_generator
 
 # since generating a tweet is super quick we simply
 # retry if it becomes too long
@@ -27,6 +28,13 @@ states = {}
 def new_state(state_name):
     if(not state_name in states):
         states[state_name] = state_def.State(state_name)
+
+try:
+    f = open('markov_chain')
+    f.close()
+except:
+    print('Generating makrov chain')
+    markov_chain_generator.generate()
 
 with open('markov_chain') as f:
     print('Building markov chain from file')
